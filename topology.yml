@@ -1,3 +1,14 @@
+name: sql-injection-demo-sandbox
+
+hosts:
+  - name: server1
+    flavor: standard.small
+    hidden: false
+    base_box:
+      mgmt_protocol: ssh
+      image: ubuntu-focal-x86_64
+      mgmt_user: ubuntu
+
 router_mappings:
   - router: router1
     ip: 10.10.10.4
@@ -11,17 +22,6 @@ network_mappings:
 wan:
   name: internet-connection
   cidr: 100.100.100.0/24
-
-hosts:
-  - name: server1
-    flavor: standard.small
-    hidden: false
-    base_box:
-      mgmt_protocol: ssh
-      image: ubuntu-focal-x86_64
-      mgmt_user: ubuntu
-
-name: sql-injection-demo-sandbox
 
 networks:
   - name: net1
