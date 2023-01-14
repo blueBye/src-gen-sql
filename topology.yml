@@ -2,7 +2,6 @@ name: sql-injection-demo-sandbox
 hosts:
 - name: server1
   flavor: standard.small
-  hidden: false
   base_box:
     mgmt_protocol: ssh
     image: ubuntu-focal-x86_64
@@ -22,11 +21,11 @@ networks:
   cidr: 10.10.10.0/24
   accessible_by_user: true
 net_mappings:
-- ip: 10.10.10.10
+- network: net1
   host: server1
-  network: net1
+  ip: 10.10.10.10
 router_mappings:
 - router: router1
-  ip: 10.10.10.4
   network: net1
+  ip: 10.10.10.4
 groups: []
