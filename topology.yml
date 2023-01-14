@@ -1,39 +1,32 @@
 name: sql-injection-demo-sandbox
-
 hosts:
-  - name: server1
-    flavor: standard.small
-    hidden: false
-    base_box:
-      mgmt_protocol: ssh
-      image: ubuntu-focal-x86_64
-      mgmt_user: ubuntu
-
-router_mappings:
-  - router: router1
-    ip: 10.10.10.4
-    network: net1
-
-network_mappings:
-  - ip: 10.10.10.10
-    host: server1
-    network: net1
-
+- name: server1
+  flavor: standard.small
+  hidden: false
+  base_box:
+    mgmt_protocol: ssh
+    image: ubuntu-focal-x86_64
+    mgmt_user: ubuntu
+routers:
+- name: router1
+  flavor: standard.small
+  base_box:
+    mgmt_protocol: ssh
+    image: debian-9-x86_64
+    mgmt_user: debian
 wan:
   name: internet-connection
   cidr: 100.100.100.0/24
-
 networks:
-  - name: net1
-    cidr: 10.10.10.0/24
-    accessible_by_user: true
-
-routers:
-  - name: router1
-    flavor: standard.small
-    base_box:
-      mgmt_protocol: ssh
-      image: debian-9-x86_64
-      mgmt_user: debian
-
+- name: net1
+  cidr: 10.10.10.0/24
+  accessible_by_user: true
+net_mappings:
+- ip: 10.10.10.10
+  host: server1
+  network: net1
+router_mappings:
+- router: router1
+  ip: 10.10.10.4
+  network: net1
 groups: []
