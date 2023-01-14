@@ -1,0 +1,82 @@
+---
+- group:
+    name: target
+    state: present
+- group:
+    name: sudo
+    state: present
+- group:
+    name: docker
+    state: present
+- user:
+    name: trainee
+    groups: target,sudo,docker
+    shell: /bin/bash
+    append: true
+    home: /home/trainee
+- copy:
+    owner: trainee
+    mode: '770'
+    dest: /home/trainee/Labsetup.zip
+    src: ./files/Labsetup.zip
+- unarchive:
+    dest: /home/trainee/Labsetup
+    src: /home/trainee/Labsetup.zip
+- copy:
+    owner: root
+    mode: '660'
+    dest: /etc/hosts
+    src: ./files/hosts
+- unarchive:
+    dest: /etc/hosts
+    src: /etc/hosts
+- copy:
+    owner: trainee
+    mode: u+x,g+x,o+x
+    dest: /usr/local/bin/docker-compose
+    src: ./files/docker-compose
+- apt:
+    name: apt-transport-https
+    state: present
+    update_cache: true
+- apt:
+    name: ca-certificates
+    state: present
+    update_cache: true
+- apt:
+    name: curl
+    state: present
+    update_cache: true
+- apt:
+    name: gnupg-agent
+    state: present
+    update_cache: true
+- apt:
+    name: software-properties-common
+    state: present
+    update_cache: true
+- apt:
+    name: python3-pip
+    state: present
+    update_cache: true
+- apt:
+    name: python3-setuptools
+    state: present
+    update_cache: true
+- apt:
+    name: docker-ce
+    state: present
+    update_cache: true
+- apt:
+    name: docker-ce-cli
+    state: present
+    update_cache: true
+- apt:
+    name: containerd.io
+    state: present
+    update_cache: true
+- shell:
+    cmd: pip install docker
+- shell:
+    cmd: docker-compose up
+    chdir: /home/trainee/Labsetup

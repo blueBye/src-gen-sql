@@ -1,0 +1,32 @@
+router_mappings:
+- router: router1
+  ip: 10.10.10.4
+  network: net1
+network_mappings:
+- ip: 10.10.10.10
+  host: server1
+  network: net1
+wan:
+  name: internet-connection
+  cidr: 100.100.100.0/24
+hosts:
+- name: server1
+  flavor: standard.small
+  hidden: false
+  base_box:
+    mgmt_protocol: ssh
+    image: ubuntu-focal-x86_64
+    mgmt_user: ubuntu
+name: kypo-crp-demo-sandbox
+groups: []
+networks:
+- name: net1
+  cidr: 10.10.10.0/24
+  accessible_by_user: true
+routers:
+- name: router1
+  flavor: standard.small
+  base_box:
+    mgmt_protocol: ssh
+    image: debian-9-x86_64
+    mgmt_user: debian

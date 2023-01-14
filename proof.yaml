@@ -1,0 +1,6 @@
+training_group_1:
+  feasibility: true
+  path:
+  - state_1
+  - state_2
+  - state_3
